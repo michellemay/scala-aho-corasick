@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+
+    <properties>
+        <java.compiler.version>1.7</java.compiler.version>
+        <scala.compiler.version>2.11.4</scala.compiler.version>
+        <scala.majorversion>2.11</scala.majorversion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <groupId>com.corruptmemory</groupId>
+    <artifactId>spotter-aho_2.11</artifactId>
+    <packaging>jar</packaging>
+    <version>0.3-SNAPSHOT</version>
+    <name>org.corruptmemory scala implementation of aho-corasick</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDir>src/main/scala</sourceDir>
+                    <jvmArgs>
+                        <jvmArg>-Xms64m</jvmArg>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.compiler.version}</version>
+            <scope>provided</scope>
+            <!--
+                                 License: Scala License
+                http://www.scala-lang.org/node/146
+            -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.compiler.version}</version>
+            <!--
+                                 License: Scala License
+                http://www.scala-lang.org/node/146
+            -->
+        </dependency>
+        <dependency>
+            <groupId>org.scalaz</groupId>
+            <artifactId>scalaz-core_${scala.majorversion}</artifactId>
+            <version>7.1.0</version>
+            <!--
+                                   License: BSD 3-Clause
+            -->
+        </dependency>
+
+        <dependency>
+  	    <groupId>org.scalacheck</groupId>
+	    <artifactId>scalacheck_${scala.majorversion}</artifactId>
+	    <version>1.12.0</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

@@ -44,8 +44,7 @@ class AhoCorasickBuilder[T](charMap:Char => Char = _.toLower) {
     var fail:Option[Goto] = none
     def goto(c:Char):Option[Goto] = next.get(c).map(_.data)
     def failToString:String = {
-      fail.fold(none = "<>",
-                some = s => "<"+s.toString+">")
+      fail.fold("<>")(s => "<"+s.toString+">")
     }
     override def toString:String = {
       "goto(%d,%s,%s,%s)".format(outputs,failToString,next.entries.map(_.map(neToString(_)).mkString("[",",","]")))
@@ -82,16 +81,14 @@ class AhoCorasickBuilder[T](charMap:Char => Char = _.toLower) {
     if (!in.string.isEmpty) {
       val target = in.string.map(charMap(_)).foldLeft(rootGoto) {
         (g,c) => {
-          g.next.get(c).fold(none = {
+          g.next.get(c).fold({
                                val n = (new Goto).next
                                g.next += c -> n
                                n.data
-                             },
-                             some = s => s.data)
+                             })(s => s.data)
         }
       }
-      target.outputs.fold(none = target.outputs = some(LinkedList(in)),
-                          some = s => s.+:(in))
+      target.outputs.fold(target.outputs = some(LinkedList(in)))(s => s.+:(in))
     }
     this
   }
@@ -127,8 +124,7 @@ class AhoCorasickBuilder[T](charMap:Char => Char = _.toLower) {
             s.fail = some(down)
             down.outputs.foreach {
               dos => {
-                s.outputs.fold(none = s.outputs = some(dos),
-                               some = s1 => s.outputs = some(s1.++:(dos)))
+                s.outputs.fold(s.outputs = some(dos))(s1 => s.outputs = some(s1.++:(dos)))
               }
             }
           }

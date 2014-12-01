@@ -96,11 +96,11 @@ case class Node[T](data:T,threshold:Int = 6) {
       ab.insert(findInsertIndex(ab),node)
       ab
     }
-    entries.fold(none = {
+    entries.fold({
                    entries = some(ArrayBuffer(node))
                    this
-                 },
-                 some = ab => {
+                 })(
+                 ab => {
                    doInsert(ab)
                    this
                  })
